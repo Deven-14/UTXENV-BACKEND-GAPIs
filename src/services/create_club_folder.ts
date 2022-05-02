@@ -2,6 +2,7 @@
 import { drive, auth } from "@googleapis/drive"
 import { get_auth } from "../auth/get_auth"
 import "dotenv/config"
+import { add_read_permission_to_coordinators } from "../helpers/add_read_permission_to_coordinators";
 
 export async function create_club_folder(club: any) // letting auth be in this file itself, coz we don't want caller of this function to provide permission
 {
@@ -21,6 +22,7 @@ export async function create_club_folder(club: any) // letting auth be in this f
             requestBody: fileMetadata,
             fields: "id"
         });
+        await add_read_permission_to_coordinators(gdrive, res.data.id, club.coordinators);
 
         console.log('Club folder created Successfully - ' + club.clubName);
         return res.data.id;

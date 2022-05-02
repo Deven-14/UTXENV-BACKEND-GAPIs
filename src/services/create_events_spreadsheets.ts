@@ -1,46 +1,8 @@
 import { drive, auth } from "@googleapis/drive";
 import { get_auth } from "../auth/get_auth";
 import { append_rows_to_spreadsheet } from "./append_rows_to_spreadsheet";
+import { add_read_permission_to_coordinators } from "../helpers/add_read_permission_to_coordinators";
 import "dotenv/config"
-
-async function add_read_permission_to_coordinator(drive: any, spreadsheetId: string, coordinator: any)
-{
-    var permission = {
-        type: 'user',
-        role: 'reader',
-        emailAddress: coordinator.email
-    }
-
-    try {
-        await drive.permissions.create({
-            resource: permission,
-            fileId: spreadsheetId,
-            fields: 'id',
-        });
-    } catch(error) {
-        console.log(error);
-        console.log("Error adding permission to coordinator " + coordinator.name);
-    }
-    
-    return "Read Permission given to " + coordinator.name;
-}
-
-async function add_read_permission_to_coordinators(drive: any, spreadsheetId: string | null | undefined, coordinators: any[])
-{
-    if(spreadsheetId == undefined || spreadsheetId == null) {
-        throw new Error("Spreadsheet not created");
-    }
-
-    var promises = [];
-    for(let coordinator of coordinators){
-        let promise = add_read_permission_to_coordinator(drive, spreadsheetId, coordinator);
-        promises.push(promise);
-    }
-
-    await Promise.all(promises);
-
-    return "Read Permission added to all Coordinators"
-}
 
 export async function create_event_spreadsheet(event: any, folderId: string | undefined)
 {
