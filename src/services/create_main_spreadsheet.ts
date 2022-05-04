@@ -1,9 +1,8 @@
 import { get_auth } from "../auth/get_auth";
-import { ICoordinator } from "../models/types/coordinator";
 import { add_read_permission_to_coordinators } from "../helpers/add_read_permission_to_coordinators";
 import { append_rows_to_spreadsheet } from "../helpers/append_rows_to_spreadsheet";
 
-export async function create_main_spreadsheet(auth: any, drive: any, sheets: any, coordinators: ICoordinator[])
+export async function create_main_spreadsheet(auth: any, drive: any, sheets: any, coordinators: any[])
 {
     const fileMetadata = {
         name: "MAIN" + "_" + "ALL EVENTS",

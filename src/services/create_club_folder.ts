@@ -1,8 +1,7 @@
 import { get_auth } from "../auth/get_auth"
 import { add_read_permission_to_coordinators } from "../helpers/add_read_permission_to_coordinators";
-import { IClubCoordinator } from "../models/clubCoordinator/clubCoordinator";
 
-export async function create_club_folder(auth: any, drive: any, club: IClubCoordinator) // adding auth, drive, so that we don't import drive, auth everywhere, it takes a lot of time
+export async function create_club_folder(auth: any, drive: any, club: any) // adding auth, drive, so that we don't import drive, auth everywhere, it takes a lot of time
 {
     const fileMetadata = {
         name: club.clubId + "_" + club.clubName,

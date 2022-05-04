@@ -10,8 +10,8 @@ export async function get_auth(auth: any, scopes: string[])
 {
     // service account key file from Google Cloud console.
     // const KEYFILEPATH = '../auth/service_account_credentials.json';
-    // const KEYFILEPATH = process.env.GOOGLE_APPLICATION_CREDENTIALS!;
-    const KEYFILEPATH = '../../config/service_account_credentials.json';
+    const KEYFILEPATH = process.env.GOOGLE_APPLICATION_CREDENTIALS!;
+    // const KEYFILEPATH = '../../config/service_account_credentials.json';
 
     const gAuth = await new auth.GoogleAuth({
         keyFile: KEYFILEPATH,

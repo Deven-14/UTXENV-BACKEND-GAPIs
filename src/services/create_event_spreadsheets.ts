@@ -1,10 +1,9 @@
 import { get_auth } from "../auth/get_auth";
 import { add_read_permission_to_coordinators } from "../helpers/add_read_permission_to_coordinators";
-import { IEventCoordinator } from "../models/eventCoordinator/eventCoordinator";
 import { append_rows_to_spreadsheet } from "../helpers/append_rows_to_spreadsheet";
 import fetch from 'node-fetch';
 
-export async function create_event_spreadsheet(auth: any, drive: any, sheets: any, event: IEventCoordinator, folderId: string | undefined)
+export async function create_event_spreadsheet(auth: any, drive: any, sheets: any, event: any, folderId: string | undefined)
 {
     if(folderId == undefined) {
         throw new Error("Folder Issue");
@@ -50,7 +49,7 @@ export async function create_event_spreadsheet(auth: any, drive: any, sheets: an
     }
 }
 
-export async function create_event_spreadsheets(auth: any, drive: any, sheets: any, events: IEventCoordinator[], folderId: string | undefined)
+export async function create_event_spreadsheets(auth: any, drive: any, sheets: any, events: any[], folderId: string | undefined)
 {
     var promises = [];
     for(let event of events) {

@@ -1,7 +1,6 @@
 import { append_rows_to_spreadsheet } from "../helpers/append_rows_to_spreadsheet";
-import {IRegistration} from "../models/Registration/registration"
 
-export async function append_regitration(auth: any, sheets: any, registration: IRegistration)
+export async function append_regitration(auth: any, sheets: any, registration: any)
 {
     var rows = [];
     rows.push([registration.eventId, registration.name, registration.email, registration.usn, registration.phone, registration.taxnId]);
@@ -13,7 +12,7 @@ export async function append_regitration(auth: any, sheets: any, registration: I
     }
 }
 
-export async function append_regitrations(auth: any, sheets: any, registrations: IRegistration[])
+export async function append_regitrations(auth: any, sheets: any, registrations: any[])
 {
     var rows = [];
     for(let registration of registrations) {
