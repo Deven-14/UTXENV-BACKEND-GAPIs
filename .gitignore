@@ -1,3 +1,5 @@
 /node_modules
 /.env
-/src/auth/service_account_credentials.json
+/config/service_account_credentials.json
+/src/services/test.ts
+/config/info.txt

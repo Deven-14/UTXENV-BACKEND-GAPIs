@@ -1,4 +1,4 @@
-async function add_read_permission_to_coordinator(drive: any, fileId: string, coordinator: any)
+async function add_read_permission_to_coordinator(gdrive: any, fileId: string, coordinator: any)
 {
     var permission = {
         type: 'user',
@@ -7,7 +7,7 @@ async function add_read_permission_to_coordinator(drive: any, fileId: string, co
     }
 
     try {
-        await drive.permissions.create({
+        await gdrive.permissions.create({
             resource: permission,
             fileId: fileId,
             fields: 'id',
@@ -15,12 +15,13 @@ async function add_read_permission_to_coordinator(drive: any, fileId: string, co
     } catch(error) {
         console.log(error);
         console.log("Error adding permission to coordinator " + coordinator.name);
+        throw error;
     }
     
     return "Read Permission given to " + coordinator.name;
 }
 
-export async function add_read_permission_to_coordinators(drive: any, fileId: string | null | undefined, coordinators: any[])
+export async function add_read_permission_to_coordinators(gdrive: any, fileId: string | null | undefined, coordinators: any[])
 {
     if(fileId == undefined || fileId == null) {
         throw new Error("FILE doesn't exist to add read permission");
@@ -28,7 +29,7 @@ export async function add_read_permission_to_coordinators(drive: any, fileId: st
 
     var promises = [];
     for(let coordinator of coordinators){
-        let promise = add_read_permission_to_coordinator(drive, fileId, coordinator);
+        let promise = add_read_permission_to_coordinator(gdrive, fileId, coordinator);
         promises.push(promise);
     }
 

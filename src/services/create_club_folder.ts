@@ -1,10 +1,8 @@
-// import { google } from "googleapis"
-import { drive, auth } from "@googleapis/drive"
 import { get_auth } from "../auth/get_auth"
-import "dotenv/config"
 import { add_read_permission_to_coordinators } from "../helpers/add_read_permission_to_coordinators";
+import { IClubCoordinator } from "../models/clubCoordinator/clubCoordinator";
 
-export async function create_club_folder(club: any) // letting auth be in this file itself, coz we don't want caller of this function to provide permission
+export async function create_club_folder(auth: any, drive: any, club: IClubCoordinator) // adding auth, drive, so that we don't import drive, auth everywhere, it takes a lot of time
 {
     const fileMetadata = {
         name: club.clubId + "_" + club.clubName,
@@ -12,13 +10,13 @@ export async function create_club_folder(club: any) // letting auth be in this f
         parents: [process.env.UTXENV_FOLDER_ID!] // ! implies that is it never undefined
     };
 
-    // const drive = google.drive({ version: 'v3', auth });
     const gauth = await get_auth(auth, ["https://www.googleapis.com/auth/drive"]);
     const gdrive = drive({version: 'v3', auth: gauth});
 
     try {
 
         const res = await gdrive.files.create({
+            auth: gauth,
             requestBody: fileMetadata,
             fields: "id"
         });
@@ -30,5 +28,6 @@ export async function create_club_folder(club: any) // letting auth be in this f
     } catch (error) {
         console.error(error);
         console.log("Error creating club" + club.clubName);
+        throw error;
     }
 }
